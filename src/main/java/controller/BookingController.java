@@ -1,5 +1,7 @@
-package com.example.oopsem2week8;
+package controller;
 
+import model.Booking;
+import service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +25,18 @@ public class BookingController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-        return bookingService.getBookingById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        try {
+            Booking booking = bookingService.getBookingById(id);
+            return ResponseEntity.ok(booking);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public ResponseEntity<Booking> createBooking(@Valid @RequestBody Booking booking) {
         Booking created = bookingService.createBooking(booking);
-        return ResponseEntity.ok(created);
+        return ResponseEntity.status(201).body(created);
     }
 
     @DeleteMapping("/{id}")
