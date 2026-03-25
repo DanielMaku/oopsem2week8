@@ -1,7 +1,7 @@
-package controller;
+package com.example.oopsem2week8.controller;
 
-import model.Booking;
-import service.BookingService;
+import com.example.oopsem2week8.model.Booking;
+import com.example.oopsem2week8.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
